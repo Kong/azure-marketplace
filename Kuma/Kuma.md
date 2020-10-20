@@ -51,7 +51,7 @@ $ terraform init
 </pre>
 
 You should see an output like this:
-</pre>
+<pre>
 Initializing the backend...
 
 Initializing provider plugins...
