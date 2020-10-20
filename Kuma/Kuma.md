@@ -1,12 +1,14 @@
 # Kuma Service Mesh
 
-This CloudFormation template based offer is meant for pre-production and production environments where customers want to leverage Kuma Service Mesh capabilities, running on an EKS Cluster. Launch Kong for Kubernetes Enterprise in a new EKS Cluster or to an existing one.
+The Kuma Service Mesh deployment is based on a Terraform template available at https://github.com/terraform-providers/terraform-provider-azurerm/tree/master/examples/kubernetes/basic-cluster. This template based offer is meant for pre-production and production environments where customers want to leverage Kuma Service Mesh capabilities, running on an AKS Cluster.
+
+For more information about the template, please refer to: https://www.terraform.io/docs/providers/azurerm/r/kubernetes_cluster.html
 
 
 #  Installation Process
 
 
-## Step 1: Key Pair
+## Step 1: Download Terraform Provider Azure Resource Manager repository
 A [Key Pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) must be configured in the region you plan to deploy your EKS Cluster.
 
 ![KeyPair](https://github.com/Kong/aws-marketplace/blob/master/screenshots/KeyPair.png)
