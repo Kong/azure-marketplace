@@ -44,7 +44,8 @@ You have logged in. Now let us find all the subscriptions to which you have acce
 ]
 </pre>
 
-## Step 4: Initiate Terraform
+## Step 4: Create the AKS Cluster
+# Initiate Terraform
 Open the Zip file you donwloaded and go to the <b>./examples/kubernetes/basic-cluster</b> directory. Run the following command to initiate Terraform:
 <pre>
 $ terraform init
@@ -79,27 +80,163 @@ rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
 </pre>
 
-## Step 4: Generate the Terraform plan
+## Step 5: Generate the Terraform plan for the AKS Cluster
+The <b>main.tf</b> script creates an AKS Cluster for us. Inside the same directory, generate the Terraform plan with the following command:
 <pre>
 terraform plan -out kuma-aks.tfplan
 </pre>
 
-or you can use the CloudFormation Stack [Wizard](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=eks-kuma&templateURL=https://kuma-cloudformation.s3.amazonaws.com/amazon-eks.yaml)
+You should see the following output. Notice we have to choose a region where the AKS Cluster will be created and a prefix name for all the resources:
+$ terraform plan -out kuma-aks.tfplan
+var.location
+  The Azure Region in which all resources in this example should be provisioned
 
-![CloudFormation](https://github.com/Kong/aws-marketplace/blob/master/Kuma/screenshots/CF-step1.png)
+  Enter a value: eastus
 
-Click on <b>Next</b>
+var.prefix
+  A prefix used for all resources in this example
 
-![CloudFormation](https://github.com/Kong/aws-marketplace/blob/master/Kuma/screenshots/CF-step2.png)
+  Enter a value: kuma
 
-Click on <b>Next</b> and on <b>Next</b> again to go the <b>Review Page</b>
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
 
-![CloudFormation](https://github.com/Kong/aws-marketplace/blob/master/Kuma/screenshots/CF-step3.png)
 
-On the bottom of the page click on both check boxes: <b>I acknowledge that AWS CloudFormation might create IAM resources with custom names.</b> and <b>I acknowledge that AWS CloudFormation might require the following capability: CAPABILITY_AUTO_EXPAND</b>.
+------------------------------------------------------------------------
 
-Click on "Create stack"
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
 
+Terraform will perform the following actions:
+
+  # azurerm_kubernetes_cluster.example will be created
+  + resource "azurerm_kubernetes_cluster" "example" {
+      + dns_prefix              = "kuma-k8s"
+      + fqdn                    = (known after apply)
+      + id                      = (known after apply)
+      + kube_admin_config       = (known after apply)
+      + kube_admin_config_raw   = (sensitive value)
+      + kube_config             = (known after apply)
+      + kube_config_raw         = (sensitive value)
+      + kubelet_identity        = (known after apply)
+      + kubernetes_version      = (known after apply)
+      + location                = "eastus"
+      + name                    = "kuma-k8s"
+      + node_resource_group     = (known after apply)
+      + private_cluster_enabled = (known after apply)
+      + private_fqdn            = (known after apply)
+      + private_link_enabled    = (known after apply)
+      + resource_group_name     = "kuma-k8s-resources"
+      + sku_tier                = "Free"
+
+      + addon_profile {
+          + aci_connector_linux {
+              + enabled = false
+            }
+
+          + azure_policy {
+              + enabled = false
+            }
+
+          + http_application_routing {
+              + enabled                            = false
+              + http_application_routing_zone_name = (known after apply)
+            }
+
+          + kube_dashboard {
+              + enabled = true
+            }
+
+          + oms_agent {
+              + enabled            = false
+              + oms_agent_identity = (known after apply)
+            }
+        }
+
+      + auto_scaler_profile {
+          + balance_similar_node_groups      = (known after apply)
+          + max_graceful_termination_sec     = (known after apply)
+          + scale_down_delay_after_add       = (known after apply)
+          + scale_down_delay_after_delete    = (known after apply)
+          + scale_down_delay_after_failure   = (known after apply)
+          + scale_down_unneeded              = (known after apply)
+          + scale_down_unready               = (known after apply)
+          + scale_down_utilization_threshold = (known after apply)
+          + scan_interval                    = (known after apply)
+        }
+
+      + default_node_pool {
+          + max_pods             = (known after apply)
+          + name                 = "default"
+          + node_count           = 1
+          + orchestrator_version = (known after apply)
+          + os_disk_size_gb      = (known after apply)
+          + type                 = "VirtualMachineScaleSets"
+          + vm_size              = "Standard_DS2_v2"
+        }
+
+      + identity {
+          + principal_id = (known after apply)
+          + tenant_id    = (known after apply)
+          + type         = "SystemAssigned"
+        }
+
+      + network_profile {
+          + dns_service_ip     = (known after apply)
+          + docker_bridge_cidr = (known after apply)
+          + load_balancer_sku  = (known after apply)
+          + network_plugin     = (known after apply)
+          + network_policy     = (known after apply)
+          + outbound_type      = (known after apply)
+          + pod_cidr           = (known after apply)
+          + service_cidr       = (known after apply)
+
+          + load_balancer_profile {
+              + effective_outbound_ips    = (known after apply)
+              + idle_timeout_in_minutes   = (known after apply)
+              + managed_outbound_ip_count = (known after apply)
+              + outbound_ip_address_ids   = (known after apply)
+              + outbound_ip_prefix_ids    = (known after apply)
+              + outbound_ports_allocated  = (known after apply)
+            }
+        }
+
+      + role_based_access_control {
+          + enabled = (known after apply)
+
+          + azure_active_directory {
+              + admin_group_object_ids = (known after apply)
+              + client_app_id          = (known after apply)
+              + managed                = (known after apply)
+              + server_app_id          = (known after apply)
+              + server_app_secret      = (sensitive value)
+              + tenant_id              = (known after apply)
+            }
+        }
+
+      + windows_profile {
+          + admin_password = (sensitive value)
+          + admin_username = (known after apply)
+        }
+    }
+
+  # azurerm_resource_group.example will be created
+  + resource "azurerm_resource_group" "example" {
+      + id       = (known after apply)
+      + location = "eastus"
+      + name     = "kuma-k8s-resources"
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+This plan was saved to: kuma-aks.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "kuma-aks.tfplan"
 
 
 ### Checking your EKS Cluster
