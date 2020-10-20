@@ -314,8 +314,25 @@ kube-system   metrics-server              ClusterIP   10.0.169.178   <none>     
 
 
 ## Step 5: Deploy Kuma Service Mesh
+To deploy Kuma Service Mesh use the Terraform Helm provider. Check the official documentation [here](https://registry.terraform.io/providers/hashicorp/helm/latest/docs).
 
-### Deploy Kuma Service Mesh with AWS CLIS
+In a new directory named <b>Kuma</b>, create a new <b>main.tf</b> like this:
+<pre>
+resource "helm_release" "example" {
+  name = "kuma"
+  repository = "https://kumahq.github.io/charts"
+  chart = "kuma"
+  version = "0.3.1"
+}
+</pre>
+
+Apply the Terraform template with the following commands:
+<pre>
+terraform init
+terraform plan -out kuma.tfplan
+terraform apply "kuma.tfplan"
+</pre>
+
 
 <pre>
 aws cloudformation create-stack --stack-name kuma --template-url \
