@@ -240,30 +240,47 @@ To perform exactly these actions, run the following command to apply:
     terraform apply "kuma-aks.tfplan"
 </pre>
 
-### Checking your EKS Cluster
-
-This checking assumes you have aws cli and kubectl commands installed locally
-
-### Listing your Clusters
+### Create the AKS Cluster
+To actually create the AKS Cluster run:
 <pre>
-$ aws eks list-clusters
-{
-    "clusters": [
-        "eks-kuma"
-    ]
-}
+terraform apply "kuma-aks.tfplan"
 </pre>
 
-### Configure kubectl locally with your EKS Cluster info
+### Check the AKS Cluster
 <pre>
-$ aws eks --region eu-central-1 update-kubeconfig --name eks-kuma
+$ az group list
+[
+  {
+    "id": "/subscriptions/aaaa295-bbbd-ccc7-bddd-eee6952e7948/resourceGroups/kuma-k8s-resources",
+    "location": "eastus",
+    "managedBy": null,
+    "name": "kuma-k8s-resources",
+    "properties": {
+      "provisioningState": "Succeeded"
+    },
+    "tags": {},
+    "type": "Microsoft.Resources/resourceGroups"
+  }
+]
+</pre>
+
+<pre>
+$ az aks list | jq .[].name
+"kuma-k8s"
+</pre>
+
+
+### Configure kubectl locally with your AKS Cluster info
+<pre>
+az aks get-credentials --resource-group kuma-k8s-resources --name kuma-k8s
 </pre>
 
 ### Get your Cluster info
 <pre>
 $ kubectl cluster-info
-Kubernetes master is running at https://43C4C665F3F1283D711B41CDFE53FA2D.gr7.eu-central-1.eks.amazonaws.com
-CoreDNS is running at https://43C4C665F3F1283D711B41CDFE53FA2D.gr7.eu-central-1.eks.amazonaws.com/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Kubernetes master is running at https://kuma-k8s-e8c02deb.hcp.eastus.azmk8s.io:443
+CoreDNS is running at https://kuma-k8s-e8c02deb.hcp.eastus.azmk8s.io:443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Metrics-server is running at https://kuma-k8s-e8c02deb.hcp.eastus.azmk8s.io:443/api/v1/namespaces/kube-system/services/https:metrics-server:/proxy
 
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 </pre>
@@ -272,24 +289,31 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ### Checking your Pods
 <pre>
 $ kubectl get pod --all-namespaces
-NAMESPACE     NAME                      READY   STATUS    RESTARTS   AGE
-kube-system   aws-node-qg8gg            1/1     Running   0          111m
-kube-system   coredns-5fdf64ff8-9pk9n   1/1     Running   0          125m
-kube-system   coredns-5fdf64ff8-tbbz9   1/1     Running   0          125m
-kube-system   kube-proxy-54vxr          1/1     Running   0          111m
+NAMESPACE     NAME                                        READY   STATUS    RESTARTS   AGE
+kube-system   coredns-869cb84759-lj6rj                    1/1     Running   0          16m
+kube-system   coredns-869cb84759-vkw8f                    1/1     Running   0          17m
+kube-system   coredns-autoscaler-5b867494f-zz752          1/1     Running   0          17m
+kube-system   dashboard-metrics-scraper-c7b44d7db-rmjhq   1/1     Running   0          17m
+kube-system   kube-proxy-f9zfr                            1/1     Running   0          16m
+kube-system   kubernetes-dashboard-6788746779-54jt8       1/1     Running   0          17m
+kube-system   metrics-server-5f4c878d8-9rvmx              1/1     Running   0          17m
+kube-system   tunnelfront-646c8cbcb9-zj6qf                1/1     Running   0          17m
 </pre>
 
 ### Checking your Services
 <pre>
 $ kubectl get services --all-namespaces
-NAMESPACE     NAME         TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)         AGE
-default       kubernetes   ClusterIP   172.20.0.1    <none>        443/TCP         125m
-kube-system   kube-dns     ClusterIP   172.20.0.10   <none>        53/UDP,53/TCP   125m
+NAMESPACE     NAME                        TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)         AGE
+default       kubernetes                  ClusterIP   10.0.0.1       <none>        443/TCP         18m
+kube-system   dashboard-metrics-scraper   ClusterIP   10.0.194.160   <none>        8000/TCP        18m
+kube-system   kube-dns                    ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP   18m
+kube-system   kubernetes-dashboard        ClusterIP   10.0.122.32    <none>        443/TCP         18m
+kube-system   metrics-server              ClusterIP   10.0.169.178   <none>        443/TCP         18m
 </pre>
 
 
 
-## Step 3: Deploy Kuma Service Mesh
+## Step 5: Deploy Kuma Service Mesh
 
 ### Deploy Kuma Service Mesh with AWS CLIS
 
