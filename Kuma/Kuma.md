@@ -13,7 +13,6 @@ For more information about the template, please refer to: https://www.terraform.
 
 
 ## Step 2: Login to Azure
-
 Open a terminal and install Azure CLI as described [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
 Login to Azure with the following command:
@@ -42,28 +41,11 @@ You have logged in. Now let us find all the subscriptions to which you have acce
 ]
 </pre>
 
+
+## Step 3: Generate the Terraform plan
+Open the Zip file you donwloaded and go to the <b>./examples/kubernetes/basic-cluster</b> directory. Run the following command to generate the Terraform plan:
 <pre>
-aws cloudformation create-stack --stack-name eks-kuma --template-url \
-https://kuma-cloudformation.s3.amazonaws.com/amazon-eks.yaml \
---parameters \
-ParameterKey=KeyPairName,ParameterValue=ekskey \
-ParameterKey=NumberOfAZs,ParameterValue=3 \
-ParameterKey=VPCCIDR,ParameterValue=10.0.0.0/16 \
-ParameterKey=PrivateSubnet1CIDR,ParameterValue=10.0.0.0/19 \
-ParameterKey=PrivateSubnet2CIDR,ParameterValue=10.0.32.0/19 \
-ParameterKey=PrivateSubnet3CIDR,ParameterValue=10.0.64.0/19 \
-ParameterKey=PublicSubnet1CIDR,ParameterValue=10.0.128.0/20 \
-ParameterKey=PublicSubnet2CIDR,ParameterValue=10.0.144.0/20 \
-ParameterKey=PublicSubnet3CIDR,ParameterValue=10.0.160.0/20 \
-ParameterKey=AvailabilityZones,ParameterValue=eu-central-1a\\,eu-central-1b\\,eu-central-1c \
-ParameterKey=RemoteAccessCIDR,ParameterValue=0.0.0.0/0 \
-ParameterKey=ProvisionBastionHost,ParameterValue=Disabled \
-ParameterKey=NumberOfNodes,ParameterValue=1 \
-ParameterKey=EKSClusterName,ParameterValue=eks-kuma \
-ParameterKey=EKSPublicAccessEndpoint,ParameterValue=Enabled \
-ParameterKey=ALBIngressController,ParameterValue=Disabled \
-ParameterKey=EKSPublicAccessEndpoint,ParameterValue=Enabled \
---capabilities CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND
+terraform plan -out kuma-aks.tfplan
 </pre>
 
 or you can use the CloudFormation Stack [Wizard](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=eks-kuma&templateURL=https://kuma-cloudformation.s3.amazonaws.com/amazon-eks.yaml)
