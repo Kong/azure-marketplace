@@ -80,13 +80,14 @@ rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
 </pre>
 
-## Step 5: Generate the Terraform plan for the AKS Cluster
+### Generate the Terraform plan for the AKS Cluster
 The <b>main.tf</b> script creates an AKS Cluster for us. Inside the same directory, generate the Terraform plan with the following command:
 <pre>
 terraform plan -out kuma-aks.tfplan
 </pre>
 
 You should see the following output. Notice we have to choose a region where the AKS Cluster will be created and a prefix name for all the resources:
+<pre>
 $ terraform plan -out kuma-aks.tfplan
 var.location
   The Azure Region in which all resources in this example should be provisioned
@@ -237,7 +238,7 @@ This plan was saved to: kuma-aks.tfplan
 
 To perform exactly these actions, run the following command to apply:
     terraform apply "kuma-aks.tfplan"
-
+</pre>
 
 ### Checking your EKS Cluster
 
