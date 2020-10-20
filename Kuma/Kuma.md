@@ -9,7 +9,7 @@ For more information about the template, please refer to: https://www.terraform.
 
 
 ## Step 1: Download Terraform Provider Azure Resource Manager repository
-[TerraformProvider](https://github.com/Kong/azure-marketplace/blob/master/Kuma/screenshots/github.png)
+![TerraformProvider](https://github.com/Kong/azure-marketplace/blob/master/Kuma/screenshots/github.png)
 
 
 ## Step 2: Create a AWS EKS Cluster with a CloudFormation stack
