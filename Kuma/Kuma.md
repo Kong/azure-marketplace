@@ -7,14 +7,17 @@ For more information about the template, please refer to: https://www.terraform.
 
 #  Installation Process
 
+## Step 1: Install Azure CLI and Terraform
+Open a terminal and install Azure CLI as described [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
-## Step 1: Download Terraform Provider Azure Resource Manager repository
+The Terraform installation process is documented [here](https://learn.hashicorp.com/tutorials/terraform/install-cli)
+
+
+## Step 2: Download Terraform Provider Azure Resource Manager repository
 ![TerraformProvider](https://github.com/Kong/azure-marketplace/blob/master/Kuma/screenshots/github.png)
 
 
-## Step 2: Login to Azure
-Open a terminal and install Azure CLI as described [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
-
+## Step 3: Login to Azure
 Login to Azure with the following command:
 <pre>
 az login
