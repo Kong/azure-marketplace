@@ -334,52 +334,46 @@ terraform apply "kuma.tfplan"
 </pre>
 
 
-<pre>
-aws cloudformation create-stack --stack-name kuma --template-url \
-https://kuma-cloudformation.s3.amazonaws.com/kuma.yaml \
---parameters \
-ParameterKey=Cluster,ParameterValue=eks-kuma
-</pre>
 
-or you can use the [CloudFormation Stack](https://console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks/new?stackName=kuma&templateURL=https://kuma-cloudformation.s3.amazonaws.com/kuma.yaml)
-
-
-![CloudFormation](https://github.com/Kong/aws-marketplace/blob/master/Kuma/screenshots/CF-step4.png)
-
-
-
-## Step 4: Checking Kuma Service Mesh deployment
+## Step 6: Checking Kuma Service Mesh deployment
 
 <pre>
 $ kubectl get pod --all-namespaces
-NAMESPACE     NAME                                  READY   STATUS    RESTARTS   AGE
-default       kuma-control-plane-7db4999799-hzmrc   1/1     Running   0          20s
-kube-system   aws-node-qg8gg                        1/1     Running   0          126m
-kube-system   coredns-5fdf64ff8-9pk9n               1/1     Running   0          139m
-kube-system   coredns-5fdf64ff8-tbbz9               1/1     Running   0          139m
-kube-system   kube-proxy-54vxr                      1/1     Running   0          126m
+NAMESPACE     NAME                                        READY   STATUS    RESTARTS   AGE
+default       kuma-control-plane-7994db7688-psvnp         1/1     Running   0          21s
+kube-system   coredns-869cb84759-lj6rj                    1/1     Running   0          44m
+kube-system   coredns-869cb84759-vkw8f                    1/1     Running   0          45m
+kube-system   coredns-autoscaler-5b867494f-zz752          1/1     Running   0          45m
+kube-system   dashboard-metrics-scraper-c7b44d7db-rmjhq   1/1     Running   0          45m
+kube-system   kube-proxy-f9zfr                            1/1     Running   0          45m
+kube-system   kubernetes-dashboard-6788746779-54jt8       1/1     Running   0          45m
+kube-system   metrics-server-5f4c878d8-9rvmx              1/1     Running   0          45m
+kube-system   tunnelfront-646c8cbcb9-zj6qf                1/1     Running   0          45m
 </pre>
 
 <pre>
 $ kubectl get service --all-namespaces
-NAMESPACE     NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                                  AGE
-default       kubernetes           ClusterIP   172.20.0.1       <none>        443/TCP                                                                  140m
-default       kuma-control-plane   ClusterIP   172.20.109.231   <none>        5681/TCP,443/TCP,5676/TCP,5677/TCP,5678/TCP,5679/TCP,5682/TCP,5653/UDP   35s
-kube-system   kube-dns             ClusterIP   172.20.0.10      <none>        53/UDP,53/TCP                                                            140m
+NAMESPACE     NAME                        TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                                                                  AGE
+default       kubernetes                  ClusterIP   10.0.0.1       <none>        443/TCP                                                                  46m
+default       kuma-control-plane          ClusterIP   10.0.92.236    <none>        5681/TCP,443/TCP,5676/TCP,5677/TCP,5678/TCP,5679/TCP,5682/TCP,5653/UDP   63s
+kube-system   dashboard-metrics-scraper   ClusterIP   10.0.194.160   <none>        8000/TCP                                                                 46m
+kube-system   kube-dns                    ClusterIP   10.0.0.10      <none>        53/UDP,53/TCP                                                            46m
+kube-system   kubernetes-dashboard        ClusterIP   10.0.122.32    <none>        443/TCP                                                                  46m
+kube-system   metrics-server              ClusterIP   10.0.169.178   <none>        443/TCP                                                                  46m
 </pre>
 
 Check Kuma GUI also. On on terminal expose the Control Plane port
 
 <pre>
-$ kubectl port-forward service/kuma-control-plane 5681:5681
+$ kubectl port-forward service/kuma-control-plane 5681
 Forwarding from 127.0.0.1:5681 -> 5681
 Forwarding from [::1]:5681 -> 5681
 </pre>
 
 Redirect your browser to http://localhost:5681/gui and click on <b>Skip to Dashboard</b>
-![KumaGUI](https://github.com/Kong/aws-marketplace/blob/master/Kuma/screenshots/GUI.png)
+![KumaGUI](https://github.com/Kong/azure-marketplace/blob/master/Kuma/screenshots/gui.png)
 
 
 ## Kuma official documentation
 
-Browse this [guides](https://kuma.io/docs) to get started configuring Kuma.
+Browse these [guides](https://kuma.io/docs) to get started configuring Kuma.
