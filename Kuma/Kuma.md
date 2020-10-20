@@ -12,9 +12,11 @@ For more information about the template, please refer to: https://www.terraform.
 ![TerraformProvider](https://github.com/Kong/azure-marketplace/blob/master/Kuma/screenshots/github.png)
 
 
-## Step 2: Create a AWS EKS Cluster with a CloudFormation stack
+## Step 2: Login to Azure
 
-You can create your EKS Cluster with the AWS CLI command:
+Open a terminal and install Azure CLI as described [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+
+tlogin to Azure with the following command:
 
 <pre>
 aws cloudformation create-stack --stack-name eks-kuma --template-url \
