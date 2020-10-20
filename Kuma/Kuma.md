@@ -16,7 +16,31 @@ For more information about the template, please refer to: https://www.terraform.
 
 Open a terminal and install Azure CLI as described [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
 
-tlogin to Azure with the following command:
+Login to Azure with the following command:
+<pre>
+az login
+</pre>
+You will be redirected to Azure Portal page. Use your Azure credentials to login. After getting authenticated, you should receive a response like this:
+
+<pre>
+You have logged in. Now let us find all the subscriptions to which you have access...
+[
+  {
+    "cloudName": "AzureCloud",
+    "homeTenantId": "f177c1d6-zzz-yyy-818a-xxxxxxxd8d",
+    "id": "aaaaaa95-bbbd-4fff-b2ba-0ooooooo7948",
+    "isDefault": true,
+    "managedByTenants": [],
+    "name": "Subscription1",
+    "state": "Enabled",
+    "tenantId": "f177c1d6-zzz-yyy-818a-xxxxxxxd8d",
+    "user": {
+      "name": "email@youcompany.com",
+      "type": "user"
+    }
+  }
+]
+</pre>
 
 <pre>
 aws cloudformation create-stack --stack-name eks-kuma --template-url \
