@@ -9,10 +9,7 @@ For more information about the template, please refer to: https://www.terraform.
 
 
 ## Step 1: Download Terraform Provider Azure Resource Manager repository
-A [Key Pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) must be configured in the region you plan to deploy your EKS Cluster.
-
-![KeyPair](https://github.com/Kong/aws-marketplace/blob/master/screenshots/KeyPair.png)
-
+[TerraformProvider](https://github.com/Kong/azure-marketplace/blob/master/Kuma/screenshots/github.png)
 
 
 ## Step 2: Create a AWS EKS Cluster with a CloudFormation stack
