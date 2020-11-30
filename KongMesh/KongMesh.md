@@ -1,6 +1,6 @@
-# Kuma Service Mesh
+# Kong Mesh
 
-The Kuma Service Mesh deployment is based on a Terraform template available at https://github.com/terraform-providers/terraform-provider-azurerm/tree/master/examples/kubernetes/basic-cluster. This template based offer is meant for pre-production and production environments where customers want to leverage Kuma Service Mesh capabilities, running on an AKS Cluster.
+The Kong Mesh deployment is based on a Terraform template available at https://github.com/terraform-providers/terraform-provider-azurerm/tree/master/examples/kubernetes/basic-cluster. This template based offer is meant for pre-production and production environments where customers want to leverage Kuma Service Mesh capabilities, running on an AKS Cluster.
 
 For more information about the template, please refer to: https://www.terraform.io/docs/providers/azurerm/r/kubernetes_cluster.html
 
