@@ -46,7 +46,7 @@ You have logged in. Now let us find all the subscriptions to which you have acce
 
 ## Step 4: Create the AKS Cluster
 ### Initiate Terraform
-Open the Zip file you donwloaded and go to the <b>./examples/kubernetes/basic-cluster</b> directory. Run the following command to initiate Terraform:
+Open the Zip file you downloaded and go to the <b>./examples/kubernetes/basic-cluster</b> directory. Run the following command to initiate Terraform:
 <pre>
 $ terraform init
 </pre>
